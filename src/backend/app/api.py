@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.backend.app.dao import milestones
+from app.dao import milestones
 
 app = FastAPI()
 

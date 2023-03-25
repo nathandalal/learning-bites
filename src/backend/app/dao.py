@@ -1,11 +1,11 @@
 import psycopg2
-
-conn = psycopg2.connect(database="postgres",
-                        host="127.0.0.1",
-                        user="postgres",
-                        password="password",
-                        port="5432")
-# tmp
+#
+# conn = psycopg2.connect(database="postgres",
+#                         host="127.0.0.1",
+#                         user="postgres",
+#                         password="password",
+#                         port="5432")
+# temporary
 milestones = [
     {
         "id": "1",
@@ -17,9 +17,9 @@ milestones = [
     }
 ]
 
-cursor = conn.cursor()
-
-cursor.execute("SELECT * FROM example_table")
-
-# Closing the connection
-conn.close()
+# cursor = conn.cursor()
+#
+# cursor.execute("SELECT * FROM example_table")
+#
+# # Closing the connection
+# conn.close()
