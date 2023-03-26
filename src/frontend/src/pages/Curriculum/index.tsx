@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import logo from '../../logo.svg';
 import './style.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-import React, { useState, useEffect } from "react";
 import axiosClient from '../../utils/axiosClient';
 import Sidebar from "../../components/Sidebar";
 
 
 
 export function Curriculum() {
-   const [learningAnswerText, setLearningAnswerText] = useState("");
+  const { milestone } = useParams<{ milestone: string }>();
+  const [learningAnswerText, setLearningAnswerText] = useState("");
  
    const onSubmit = async () => {
      await axiosClient({
@@ -27,7 +27,7 @@ export function Curriculum() {
    return (
      <div className="container mx-auto py-5">
        <p className="py-2">
-         Here is a curriculum tailored to your learning needs.
+         You're learning about the following topic: {milestone}
        </p>
  
        <h3 className="py-2">

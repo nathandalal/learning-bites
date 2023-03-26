@@ -8,7 +8,7 @@ import axiosClient from "../../utils/axiosClient";
 
 export function HomePage() {
   const [learningAnswerText, setLearningAnswerText] = useState("How browsers work");
-  const [rawResponse, setRawResponse] = useState("")
+  const [response, setResponse] = useState(null)
 
   const onSubmit = async () => {
     if (!learningAnswerText) {
@@ -22,8 +22,21 @@ export function HomePage() {
         topic: learningAnswerText,
       },
       data: {},
-    }).then(data => setRawResponse(JSON.stringify(data)) )
+    }).then(({data}) => {
+      setResponse(data);
+      console.log(data)
+      } )
   }
+
+  const milestones = [
+    "Network Basics",
+    "HTTP Protocol",
+    "Rendering Engine",
+    "DOM Tree",
+    "Javascript",
+  ]
+
+  console.log(response)
 
   return (
     <div className="container mx-auto py-5">
@@ -43,14 +56,14 @@ export function HomePage() {
       </button>
 
       <div>
-        <Link to="/curriculum" className="App-link">
-          Next Page
+      {milestones.map((milestone) => (
+        <p className="py-2" key={milestone}>
+        <Link to={`/curriculum/${milestone}`} className="App-link">
+          {milestone}
         </Link>
+        </p>
+        ))}
       </div>
-
-      <p className="py-6">
-        {rawResponse}
-      </p>
     </div>
   );
 }
