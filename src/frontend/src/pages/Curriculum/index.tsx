@@ -34,8 +34,8 @@ export function Curriculum() {
       return;
     }
     setBackendResponseHistory((prev) => [...prev, moreQuestionsText])
-    console.log("WIOEJOIFJEIOFCOE")
-    await fetchBackendResponse(`Based on you providing a question earlier about ${milestone}, the student either had a clarifiication or answered the question with "${moreQuestionsText}" Please help the student clarify their misconceptions!`);
+    await fetchBackendResponse(`Based on you providing a question earlier about ${milestone}, the student either had a clarifiication or answered the question with "${moreQuestionsText}" Please help the student clarify their misconceptions, and if you believe based on the student response that they understood the underlying concept, congratulate them on learning something new!`);
+    setMoreQuestionsText("")
    }
 
    const fetchBackendResponse = async (learnerInput: string) => {
@@ -80,7 +80,7 @@ export function Curriculum() {
                   {item}
                   </div>
                   </> : <div className="font-bold py-2 whitespace-pre-wrap">
-                  Learner asked: {item}
+                  Learner: {item}
                   </div>
                 ))
          ): (
@@ -93,7 +93,7 @@ export function Curriculum() {
          {backendResponse && <><textarea
         id="message"
         rows={4}
-        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
         placeholder="Do you have more questions about this topic? Ask them here."
         value={moreQuestionsText}
         onChange={(event) => { setMoreQuestionsText(event.target.value) }} />
