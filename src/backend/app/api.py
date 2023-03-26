@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.dao import milestones
+# from app.dao import milestones
 
 app = FastAPI()
 
@@ -24,14 +24,19 @@ async def read_root() -> dict:
     return {"message": "Welcome to Learning Bites!!."}
 
 
-@app.get("/response", tags=["response"])
-async def get_responses() -> str:
-    return {"data": 'hello'}
+@app.post("/response", tags=["response"])
+async def get_responses(_human_input: str) -> dict:
+    # TODO: Invoke OpenAI for Response
+    response = 'Hello how are you'
+    return {
+        "data": { response }
+    }
 
 
 # CRUD Milestones
 @app.get("/milestone", tags=["milestones"])
 async def get_milestones() -> dict:
+    # TODO: query KV store for milestones
     return {"data": milestones}
 
 @app.post("/milestone", tags=["milestones"])
@@ -66,3 +71,15 @@ async def delete_milestone(id: int) -> dict:
     return {
         "data": f"Milestone with id {id} not found."
     }
+
+# temporary
+milestones = [
+    {
+        "id": "1",
+        "item": "Read a book."
+    },
+    {
+        "id": "2",
+        "item": "Cycle around town."
+    }
+]
