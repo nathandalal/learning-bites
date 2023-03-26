@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.prompt_manager import get_predictions, get_milestones
+from app.prompt_manager import get_predictions, get_prompt_milestones
 
 app = FastAPI()
 
@@ -28,8 +28,7 @@ async def read_root() -> dict:
 # response is string
 @app.post("/response", tags=["response"])
 async def get_responses(human_input: str) -> dict:
-    # TODO: Invoke OpenAI for Response
-    response = get_predictions(human_input)
+    response = await get_predictions(human_input)
     return {
         "data": { response }
     }
@@ -55,9 +54,10 @@ async def get_responses(human_input: str) -> dict:
 # }
 # ]
 
-@app.post("/milestone", tags=["milestones"])
+@app.post("/milestone", tags=["milestone"])
 async def get_milestones(topic: str) -> dict:
-    milestones = get_milestones(topic)
+    milestones = await get_prompt_milestones(topic)
+    print (str(milestones))
     return {
         "data": { milestones }
     }

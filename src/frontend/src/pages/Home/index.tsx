@@ -7,17 +7,22 @@ import { Link } from 'react-router-dom';
 import axiosClient from "../../utils/axiosClient";
 
 export function HomePage() {
-  const [learningAnswerText, setLearningAnswerText] = useState("");
+  const [learningAnswerText, setLearningAnswerText] = useState("How browsers work");
+  const [rawResponse, setRawResponse] = useState("")
 
   const onSubmit = async () => {
+    if (!learningAnswerText) {
+      alert("Please add what you want to learn!")
+      return;
+    }
     await axiosClient({
       method: 'post',
-      url: `/response`,
+      url: `/milestone`,
       params: {
-        human_input: learningAnswerText,
+        topic: learningAnswerText,
       },
       data: {},
-    }).then(data => { console.log(data) });
+    }).then(data => setRawResponse(JSON.stringify(data)) )
   }
 
   return (
@@ -42,6 +47,10 @@ export function HomePage() {
           Next Page
         </Link>
       </div>
+
+      <p className="py-6">
+        {rawResponse}
+      </p>
     </div>
   );
 }

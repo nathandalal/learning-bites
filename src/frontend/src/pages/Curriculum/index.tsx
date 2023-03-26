@@ -1,8 +1,12 @@
+import React, { useEffect } from "react";
+
 import logo from '../../logo.svg';
 import './style.css';
 import { Link } from 'react-router-dom';
 
 import Sidebar from "../../components/Sidebar";
+import axiosClient from "../../utils/axiosClient";
+
 
 const Curriculum = () => {
   useEffect(() => {
