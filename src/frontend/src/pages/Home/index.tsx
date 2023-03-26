@@ -56,15 +56,10 @@ export function HomePage() {
       </button>
 
       <div>
-<<<<<<< HEAD
       {milestones.map((milestone) => (
         <p className="py-2" key={milestone}>
         <Link to={`/curriculum/${milestone}`} className="App-link">
           {milestone}
-=======
-        <Link to="/curriculum" className="App-link">
-          Next Page {'>>'}
->>>>>>> 6ddd08b85d28061f621dafea7563aaefdecc5c18
         </Link>
         </p>
         ))}
