@@ -1,13 +1,32 @@
 import os
 from langchain import OpenAI, ConversationChain, LLMChain, PromptTemplate
 from langchain.memory import ConversationBufferWindowMemory
+from dotenv import load_env
 
-OPENAI_API_KEY = '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'
+load_env()
+
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
-print('hi')
+
+def get_milestones(topic: str):
+    template = """Human: Provide 5 milestones in JSON needed in order to properly learn about {topic}. Each milestone should be less than 3 words!
+        Assistant:"""
+    prompt = PromptTemplate(
+        input_variables=["topic"],
+        template=template
+    )
+
+    chat_chain = LLMChain(
+        llm=OpenAI(temperature=0),
+        prompt=prompt,
+        verbose=True,
+        memory=ConversationBufferWindowMemory(k=10),
+    )
+    output = chat_chain.predict(topic=topic)
+    return output
 
 
-def get_predictions(human_input: str = "hi"):
+def get_predictions(human_input: str):
     template = """You are a new-age teacher, who is passionate about teaching others the science behind common skills. Your job is to create a curriculum to teach a student what they want to learn, and guide them through the entire process.
     You will first assess the competency of the student, then teach them the gaps. Envision the mental model the student has of the topic, and seek to fill in the gaps over time.
     You are focused on continuity, and your curriculum must involve frequent teachings intermixed with assessments, to ensure the student is on track.
@@ -30,5 +49,4 @@ def get_predictions(human_input: str = "hi"):
         memory=ConversationBufferWindowMemory(k=10),
     )
     output = chat_chain.predict(human_input=human_input)
-    print(output)
     return output

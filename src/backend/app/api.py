@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.prompt_manager import get_predictions
+from app.prompt_manager import get_predictions, get_milestones
 
 app = FastAPI()
 
@@ -24,6 +24,8 @@ async def read_root() -> dict:
     return {"message": "Welcome to Learning Bites!!."}
 
 
+# Provides GPT response to human_input
+# response is string
 @app.post("/response", tags=["response"])
 async def get_responses(human_input: str) -> dict:
     # TODO: Invoke OpenAI for Response
@@ -33,53 +35,29 @@ async def get_responses(human_input: str) -> dict:
     }
 
 
-# CRUD Milestones
-@app.get("/milestone", tags=["milestones"])
-async def get_milestones() -> dict:
-    # TODO: query KV store for milestones
-    return {"data": milestones}
+# Provides 5 milestones to learn topic
+# Milestones are in JSON format, for example:
+# [
+# {
+#     "Milestone": "Foundation Basics"
+# },
+# {
+#     "Milestone": "Eyeshadow Techniques"
+# },
+# {
+#     "Milestone": "Blush Application"
+# },
+# {
+#     "Milestone": "Lipstick Application"
+# },
+# {
+#     "Milestone": "Contouring Basics"
+# }
+# ]
 
 @app.post("/milestone", tags=["milestones"])
-async def add_milestones(milestones: dict) -> dict:
-    milestones.append(milestones)
+async def get_milestones(topic: str) -> dict:
+    milestones = get_milestones(topic)
     return {
-        "data": { "Milestone added." }
+        "data": { milestones }
     }
-
-@app.put("/milestone/{id}", tags=["milestones"])
-async def update_milestones(id: int, body: dict) -> dict:
-    for milestone in milestones:
-        if int(milestone["id"]) == id:
-            milestone["item"] = body["item"]
-            return {
-                "data": f"Milestone with id {id} has been updated."
-            }
-
-    return {
-        "data": f"Milestone with id {id} not found."
-    }
-
-@app.delete("/milestone/{id}", tags=["milestones"])
-async def delete_milestone(id: int) -> dict:
-    for milestone in milestones:
-        if int(milestone["id"]) == id:
-            milestones.remove(milestone)
-            return {
-                "data": f"Milestone with id {id} has been removed."
-            }
-
-    return {
-        "data": f"Milestone with id {id} not found."
-    }
-
-# temporary
-milestones = [
-    {
-        "id": "1",
-        "item": "Read a book."
-    },
-    {
-        "id": "2",
-        "item": "Cycle around town."
-    }
-]
