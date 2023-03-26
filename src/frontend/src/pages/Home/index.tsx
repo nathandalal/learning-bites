@@ -44,7 +44,7 @@ export function HomePage() {
 
       <div>
         <Link to="/curriculum" className="App-link">
-          Next Page
+          Next Page {'>>'}
         </Link>
       </div>
 
