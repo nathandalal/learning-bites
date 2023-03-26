@@ -4,73 +4,48 @@ import logo from '../../logo.svg';
 import './style.css';
 import { Link } from 'react-router-dom';
 
+import React, { useState, useEffect } from "react";
+import axiosClient from '../../utils/axiosClient';
 import Sidebar from "../../components/Sidebar";
 import axiosClient from "../../utils/axiosClient";
 
 
-const Curriculum = () => {
-  useEffect(() => {
-    axiosClient({
-      method: 'get',
-      url: "/",
-    }).then(data => console.log(data));
-  })
 
-  return (
-    <>
-    <Sidebar />
+export function Curriculum() {
+   const [learningAnswerText, setLearningAnswerText] = useState("");
+ 
+   const onSubmit = async () => {
+     await axiosClient({
+       method: 'post',
+       url: `/response`,
+       params: {
+         human_input: learningAnswerText,
+       },
+       data: {},
+     }).then(data => { console.log(data) });
+   }
+ 
+   return (
+     <div className="container mx-auto py-5">
+       <p className="py-2">
+         Here is a curriculum tailored to your learning needs.
+       </p>
+ 
+       <h3 className="py-2">
+         Learning Goal 1 
+       </h3>
 
-    <div className="p-4 sm:ml-64">
-       <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-          <div className="grid grid-cols-3 gap-4 mb-4">
-             <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-             </div>
-             <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-             </div>
-             <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-             </div>
-          </div>
-          <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-             <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-          </div>
-          <div className="grid grid-cols-2 gap-4 mb-4">
-             <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-             </div>
-             <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-             </div>
-             <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-             </div>
-             <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-             </div>
-          </div>
-          <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-             <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-             <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-             </div>
-             <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-             </div>
-             <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-             </div>
-             <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-             </div>
-          </div>
+       <h3 className="py-2">
+         Learning Goal 2
+       </h3>
+ 
+       <div>
+         <Link to="/" className="App-link">
+           Previous Page
+         </Link>
        </div>
-    </div>
-    </>
-  );
-}
+     </div>
+   );
+ }
 
 export default Curriculum;
