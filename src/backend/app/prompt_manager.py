@@ -9,7 +9,7 @@ OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 async def get_prompt_milestones(topic: str):
-    template = """Human: Provide 5 milestones in JSON needed in order to properly learn about {topic}. Each milestone should be less than 3 words!
+    template = """Human: Provide 5 milestones in comma seperated strings needed in order to properly learn about {topic}. Each milestone should be less than 3 words!
         Assistant:"""
     prompt = PromptTemplate(
         input_variables=["topic"],
@@ -23,7 +23,6 @@ async def get_prompt_milestones(topic: str):
         memory=ConversationBufferWindowMemory(k=10),
     )
     output = chat_chain.predict(topic=topic)
-    print (output)
     return output
 
 
@@ -35,19 +34,18 @@ async def get_predictions(human_input: str):
     You are also very focused on hands-on learning, and will provide real life exercises the student can do when possible, followed by an assessment to ensure they have learned from the exercise.
     Once you are sure the student understands the concepts you have taught, you will move forward to the next topic.
     {history}
-    Human: {human_input}
+    Human: {input}
     Assistant:"""
 
     prompt = PromptTemplate(
-        input_variables=["history", "human_input"],
+        input_variables=["history", "input"],
         template=template
     )
 
-    chat_chain = LLMChain(
-        llm=OpenAI(temperature=0),
+    chat_chain = ConversationChain(
+        llm=OpenAI(temperature=0.2),
         prompt=prompt,
         verbose=True,
         memory=ConversationBufferWindowMemory(k=10),
     )
-    output = chat_chain.predict(human_input=human_input)
-    return output
+    return chat_chain.predict(input=human_input)
