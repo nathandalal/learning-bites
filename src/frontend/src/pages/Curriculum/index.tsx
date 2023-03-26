@@ -1,5 +1,3 @@
-import React, { useEffect } from "react";
-
 import logo from '../../logo.svg';
 import './style.css';
 import { Link } from 'react-router-dom';
