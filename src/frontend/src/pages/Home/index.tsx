@@ -8,7 +8,7 @@ import axiosClient from "../../utils/axiosClient";
 
 export function HomePage() {
   const [learningAnswerText, setLearningAnswerText] = useState("How browsers work");
-  const [response, setResponse] = useState(null)
+  const [response, setResponse] = useState<any>(null)
 
   const onSubmit = async () => {
     if (!learningAnswerText) {
@@ -28,13 +28,14 @@ export function HomePage() {
       } )
   }
 
-  const milestones = [
+  // ts-ignore
+  const milestones = (response?.data?.[0].trim().split(",") || [
     "Network Basics",
     "HTTP Protocol",
     "Rendering Engine",
     "DOM Tree",
     "Javascript",
-  ]
+  ]) as string[]
 
   console.log(response)
 
