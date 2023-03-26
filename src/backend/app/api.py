@@ -6,6 +6,7 @@ from app.prompt_manager import get_predictions, get_prompt_milestones
 app = FastAPI()
 
 origins = [
+    "https://learning-bites-demo.onrender.com",
     "http://localhost:3000",
     "localhost:3000"
 ]
