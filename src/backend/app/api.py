@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# from app.dao import milestones
+from app.prompt_manager import get_predictions
 
 app = FastAPI()
 
@@ -25,9 +25,9 @@ async def read_root() -> dict:
 
 
 @app.post("/response", tags=["response"])
-async def get_responses(_human_input: str) -> dict:
+async def get_responses(human_input: str) -> dict:
     # TODO: Invoke OpenAI for Response
-    response = 'Hello how are you'
+    response = get_predictions(human_input)
     return {
         "data": { response }
     }

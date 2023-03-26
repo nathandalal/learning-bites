@@ -2,11 +2,12 @@ import os
 from langchain import OpenAI, ConversationChain, LLMChain, PromptTemplate
 from langchain.memory import ConversationBufferWindowMemory
 
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = 'add_key_here'
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
+print('hi')
 
 
-def get_predictions(human_input: str):
+def get_predictions(human_input: str = "hi"):
     template = """You are a new-age teacher, who is passionate about teaching others the science behind common skills. Your job is to create a curriculum to teach a student what they want to learn, and guide them through the entire process.
     You will first assess the competency of the student, then teach them the gaps. Envision the mental model the student has of the topic, and seek to fill in the gaps over time.
     You are focused on continuity, and your curriculum must involve frequent teachings intermixed with assessments, to ensure the student is on track.
