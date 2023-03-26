@@ -2,6 +2,8 @@ import logo from '../../logo.svg';
 import './style.css';
 import { Link } from 'react-router-dom';
 
+import {useEffect} from 'react';
+import axiosClient from '../../utils/axiosClient';
 import Sidebar from "../../components/Sidebar";
 
 const Curriculum = () => {
@@ -9,7 +11,7 @@ const Curriculum = () => {
     axiosClient({
       method: 'get',
       url: "/",
-    }).then(data => console.log(data));
+    }).then((data:any) => console.log(data));
   })
 
   return (
