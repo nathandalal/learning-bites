@@ -2,7 +2,7 @@ import os
 from langchain import OpenAI, ConversationChain, LLMChain, PromptTemplate
 from langchain.memory import ConversationBufferWindowMemory
 
-OPENAI_API_KEY = 'add_key_here'
+OPENAI_API_KEY = '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'
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 print('hi')
 

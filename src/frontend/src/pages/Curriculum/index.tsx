@@ -5,6 +5,13 @@ import { Link } from 'react-router-dom';
 import Sidebar from "../../components/Sidebar";
 
 const Curriculum = () => {
+  useEffect(() => {
+    axiosClient({
+      method: 'get',
+      url: "/",
+    }).then(data => console.log(data));
+  })
+
   return (
     <>
     <Sidebar />
