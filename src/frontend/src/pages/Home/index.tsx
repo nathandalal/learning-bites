@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import axiosClient from "../../utils/axiosClient";
 
 export function HomePage() {
-  const [learningAnswerText, setLearningAnswerText] = useState("How browsers work");
+  const [learningAnswerText, setLearningAnswerText] = useState("");
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<any>(null)
 
@@ -32,7 +32,8 @@ export function HomePage() {
   }
 
   // ts-ignore
-  const milestones = (response?.data?.[0].trim().split(",") || []) as string[]
+  const unprocessedMilestones = (response?.data?.[0].trim().split(",") || []) as string[]
+  const milestones = unprocessedMilestones.map(m => m.substr(m.length - 1) === "." ? m.substr(0, m.length - 1) : m)
 
   console.log(response)
 
@@ -58,7 +59,7 @@ export function HomePage() {
       <div className="flex flex-col items-start ml-16">
       {milestones.map((milestone) => (
         <p className="py-2" key={milestone.trim()}>
-        <Link to={`/curriculum/${milestone.trim()}/${learningAnswerText}`} className="App-link">
+        <Link to={`/curriculum/${milestone.trim()}/${learningAnswerText}`} className="App-link" target="_blank">
         <button className="text-pink-500 border border-pink-500 hover:bg-pink-500 hover:text-white active:bg-pink-600 font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
           <i className="fas fa-heart"></i> {milestone.trim()}
         </button>

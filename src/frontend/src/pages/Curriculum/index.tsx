@@ -13,6 +13,7 @@ export function Curriculum() {
   const [userText, setUserText] = useState(`give me a simple lesson about ${milestone} as it relates to the learner's question "${learningAnswerText}" in it using the following structure:\n\n1. Overview of principle\n\n2. Easy to understand real world examples of the principle assuming no prior experience\n\n3. Details of why principle is important\n\n4. A multiple choice question with three possible answers that you ask me to confirm my understanding (make sure you do not give me the answer and let me answer it! Please return your lesson content to the student informally and approachably, with appropriate line breaks and english language formatting.\n\nAs an example, a simple lesson about soil as it relates to farming is: Soil quality is integral to the health of crops. High nutrient quantity will ensure produce and other crops have a better chance of surviving.`);
   const [backendResponse, setBackendResponse] = useState<string | null>(null);
   const [backendResponseHistory, setBackendResponseHistory] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const [moreQuestionsText, setMoreQuestionsText] = useState("");
  
@@ -38,6 +39,7 @@ export function Curriculum() {
    }
 
    const fetchBackendResponse = async (learnerInput: string) => {
+    setLoading(true);
       try {
          const response = await axiosClient({
             method: 'post',
@@ -53,6 +55,7 @@ export function Curriculum() {
       } catch (error) {
          console.error("Error fetching backend response:", error);
       }
+      setLoading(false);
    };
 
    console.log(backendResponse)
@@ -81,7 +84,11 @@ export function Curriculum() {
                   </div>
                 ))
          ): (
-         <div>Your AI generated lesson is loading! Please stand by.</div>)}
+         <div className="py-6">Your AI generated lesson is loading! Please stand by for learning...</div>)}
+
+         {backendResponseHistory.length > 0 && backendResponseHistory.length % 2 === 0 && (
+            <div className="py-6">The AI is working on a response to your question...</div>
+          )}
 
          {backendResponse && <><textarea
         id="message"
