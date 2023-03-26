@@ -1,7 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from '../../logo.svg';
+import './style.css';
+import { Link } from 'react-router-dom';
 
-function App() {
+export function PageTwo() {
   return (
     <div className="App">
       <header className="App-header">
@@ -18,8 +19,18 @@ function App() {
           Learn React
         </a>
       </header>
+
+      <div className="App-line"></div>
+      
+      <main className="App-main">
+        <p>
+          Page 2
+        </p>
+
+        <Link to="/" className="App-link">
+          Previous Page
+        </Link>
+      </main>
     </div>
   );
 }
-
-export default App;

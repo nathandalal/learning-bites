@@ -1,4 +1,10 @@
 .App {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #282c34;
   text-align: center;
 }
 
@@ -13,9 +19,8 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.App-header {  
+  width: 45%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,4 +40,21 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.App-line {
+  height: 50%;
+  width: 2px;
+  background-color: white;
+}
+
+.App-main {  
+  height: 100%;
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
