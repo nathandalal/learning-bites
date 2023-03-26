@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import axiosClient from '../../utils/axiosClient';
 import Sidebar from "../../components/Sidebar";
-import axiosClient from "../../utils/axiosClient";
 
 
 

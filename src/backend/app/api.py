@@ -57,7 +57,6 @@ async def get_responses(human_input: str) -> dict:
 @app.post("/milestone", tags=["milestone"])
 async def get_milestones(topic: str) -> dict:
     milestones = await get_prompt_milestones(topic)
-    print (str(milestones))
     return {
         "data": { milestones }
     }
