@@ -44,7 +44,7 @@ async def get_predictions(human_input: str):
     )
 
     chat_chain = ConversationChain(
-        llm=OpenAI(temperature=0.3),
+        llm=OpenAI(model_name='gpt-4', temperature=0.3),
         prompt=prompt,
         verbose=True,
         memory=ConversationBufferWindowMemory(k=10),
