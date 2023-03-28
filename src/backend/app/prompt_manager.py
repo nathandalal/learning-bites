@@ -9,7 +9,7 @@ OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 async def get_prompt_milestones(topic: str):
-    template = """Human: Provide 5 milestones in comma seperated strings needed in order to properly learn about {topic}. Each milestone should be less than 7 words!\nFor example, for the topic "How browsers work", a good set of five milestones would be "Network Basics, HTTP Protocol, Rendering Engine, DOM Tree, Javascript"
+    template = """Human: Provide 5 milestones in comma separated strings needed in order to properly learn about {topic}. Each milestone should be less than 7 words!\nFor example, for the topic "How browsers work", a good set of five milestones would be "Network Basics, HTTP Protocol, Rendering Engine, DOM Tree, Javascript. Output format must be comma separated strings."
         Assistant:"""
     prompt = PromptTemplate(
         input_variables=["topic"],
